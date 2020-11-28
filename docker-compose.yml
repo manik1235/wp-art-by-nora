@@ -1,0 +1,30 @@
+version: '3.7'
+
+services:
+  app:
+    image: wordpress:latest
+    restart: unless-stopped
+    ports:
+      - "1081:80"
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: admin
+      WORDPRESS_DB_PASSWORD: cat-umbrella
+      WORDPRESS_DB_NAME: wp_db
+    volumes:
+      - wordpress-art-by-nora:/var/www/html
+
+  db:
+    image: mysql:5.7
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: wp_db
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: cat-umbrella
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    volumes:
+      - db-art-by-nora:/var/lib/mysql
+
+volumes:
+  wordpress-art-by-nora:
+  db-art-by-nora:
